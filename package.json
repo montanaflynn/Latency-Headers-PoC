@@ -4,13 +4,15 @@
   "author": "Montana Flynn",
   "scripts": {
     "client": "node client.js",
+    "server": "node --harmony server.js &",
+    "killserver": "pkill latencyPoC",
     "prestart": "npm install",
     "start": "npm run-script test",
     "pretest": "node --harmony server.js &",
     "test": "node client.js",
     "posttest": "pkill latencyPoC"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "ISC",
   "dependencies": {
     "koa": "^0.12.2",
