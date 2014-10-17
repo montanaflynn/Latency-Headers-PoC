@@ -16,7 +16,7 @@ http.get(process.argv[2] || "http://localhost:1337", function(response) {
 
   // If the server is not sending the latency headers we stop here
   if (!responseSent || !requestReceived){
-    console.log({ "error" : "The server did not respond with latency headers" })
+    console.log("\n\033[31m", "The server did not respond with latency headers", "\n\033[39m")
     return false
   }
 
@@ -27,19 +27,19 @@ http.get(process.argv[2] || "http://localhost:1337", function(response) {
   var roundtripLatency = outgoingLatency + processingLatency + incomingLatency
   
   // Print out the latency in human readable format
-  console.log("=================================================")
+  console.log("\033[32m=================================================")
   console.log("Latency Benchmarks: ")
   console.log("Total outgoing network latency: " + outgoingLatency + "ms")
   console.log("Total processing time latency: " + processingLatency + "ms")
   console.log("Total incoming network latency: " + incomingLatency + "ms")
   console.log("Total round trip latency: " + roundtripLatency + "ms")
-  console.log("=================================================\n")
+  console.log("=================================================\033[39m")
   return true
 
 }).on('error', function(e) {
   
   // There was an error connecting to the server
-  console.log({ "error" : "There was an error connecting to the server" });
+  console.log("\n\033[31m", "There was an error connecting to the server", "\n\033[39m");
   return false
   
 });
