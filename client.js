@@ -34,14 +34,7 @@ http.get(process.argv[2] || "http://localhost:1337", function(response) {
   console.log("Total incoming network latency: " + incomingLatency + "ms")
   console.log("Total round trip latency: " + roundtripLatency + "ms")
   console.log("=================================================\n")
-
-  // Return the latency in JSON so you log it, etc...
-  return {
-    "outgoing" : outgoingLatency + "ms",
-    "processing" : processingLatency + "ms",
-    "incoming" : incomingLatency + "ms",
-    "roundtrip" : roundtripLatency + "ms"
-  }
+  return true
 
 }).on('error', function(e) {
   
