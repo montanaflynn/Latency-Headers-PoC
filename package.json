@@ -1,6 +1,6 @@
 {
   "name": "latency-header-poc",
-  "description": "Proof of concept of using HTTP headers to benchmark latency",
+  "description": "Proof of concept for using HTTP headers to benchmark latency",
   "author": "Montana Flynn",
   "scripts": {
     "client": "node client.js",
