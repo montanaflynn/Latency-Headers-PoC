@@ -1,10 +1,10 @@
 var koa = require('koa')
 var app = koa()
  
-// Make it easy to kill from npm
+// Make it easy to pkill from npm
 process.title = "latencyPoC"
  
-// Set network latency headers
+// Set the x-request-received header
 app.use(function *(next){
   var timestamp = new Date().getTime()
   this.set('x-request-received', timestamp)
@@ -25,10 +25,14 @@ app.use(function *(next){
  
 // Send the response
 app.use(function *(){
-  var timestamp = new Date().getTime()
+
+  // Just for fun and the demo
   this.set('x-powered-by', 'magic')
-  this.set('x-response-sent', timestamp)
   this.body = 'Hello World'
+
+  // Set the x-response-sent header
+  var timestamp = new Date().getTime()
+  this.set('x-response-sent', timestamp)
 })
  
 app.listen(1337)
