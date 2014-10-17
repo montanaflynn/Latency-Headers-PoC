@@ -5,12 +5,12 @@
   "scripts": {
     "client": "node client.js",
     "prestart": "npm install",
-  	"start": "npm run-script test",
+    "start": "npm run-script test",
     "pretest": "node --harmony server.js &",
     "test": "node client.js",
     "posttest": "pkill latencyPoC"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "ISC",
   "dependencies": {
     "koa": "^0.12.2",
