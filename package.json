@@ -1,0 +1,19 @@
+{
+  "name": "latency-header-poc",
+  "description": "Proof of concept of using HTTP headers to benchmark latency",
+  "author": "Montana Flynn",
+  "scripts": {
+    "client": "node client.js",
+    "prestart": "npm install",
+  	"start": "npm run-script test",
+    "pretest": "node --harmony server.js &",
+    "test": "npm run-script client",
+    "posttest": "pkill latencyPoC"
+  },
+  "version": "0.1.0",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^0.12.2",
+    "unirest": "^0.2.7"
+  }
+}
