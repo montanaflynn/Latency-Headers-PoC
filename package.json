@@ -3,14 +3,10 @@
   "description": "Proof of concept for using HTTP headers to benchmark latency",
   "author": "Montana Flynn",
   "scripts": {
-    "client": "node client.js",
-    "server": "node --harmony server.js &",
     "killserver": "pkill latencyPoC",
-    "prestart": "npm install",
-    "start": "npm run-script test",
-    "pretest": "node --harmony server.js &",
-    "test": "node client.js",
-    "posttest": "pkill latencyPoC"
+    "prestart": "node server.js &",
+    "start": "node client.js",
+    "poststart": "pkill latencyPoC"
   },
   "version": "0.1.5",
   "license": "ISC"
