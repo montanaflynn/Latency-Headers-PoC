@@ -10,7 +10,7 @@ var server = http.createServer(function (request, response) {
   // Set the x-request-received header with the current timestamp
   response.setHeader('x-request-received', new Date().getTime());
 
-  // Simulate a delay between 50-100ms for processing latency
+  // Simulate a delay between 50-75ms for processing latency
   setTimeout(function(){
 
     // Set the x-response-sent header with the current timestamp
@@ -22,7 +22,7 @@ var server = http.createServer(function (request, response) {
     // Return the obligatory hello world response
     response.end("Hello World\n");
 
-  }, Math.floor((Math.random() * 100) + 50))
+  }, Math.floor((Math.random() * 75) + 50))
 
 });
 
