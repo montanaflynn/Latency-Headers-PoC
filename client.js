@@ -1,38 +1,14 @@
-// HTTP client library unirest.io
-var unirest = require('unirest')
- 
+// Load the http module
+var http = require('http');
+
 // This is the starting timestamp of when the request was sent
 var requestSent = new Date().getTime()
 
-// Get the local test server at port 1337 or user supplied server
-var server = process.argv[2] || "http://localhost:1337"
-
-// Make the request
-unirest
-
-  // Send the GET request to the server
-  .get(server)
-
-  // Return the response to an anonymous function
-  .end(function(response){
-
-    // Run the response handler function to get the latency
-    var latencyBenchmark = benchmarkLatency(response)
-    console.log(latencyBenchmark)
-
-  })
-
-// The response handler to process the HTTP request latency
-function benchmarkLatency(response) {
+// Get the user supplied server or local test server at port 1337
+http.get(process.argv[2] || "http://localhost:1337", function(response) {
 
   // Save the timestamp of when the response was received
   var responseReceived = new Date().getTime()
-
-  // There was an error with the request so we must stop here
-  if (response.error) {
-    console.log(response.error)
-    return '{ "error" : "There was a problem connecting to the server" }'
-  }
 
   // Save the headers we care about in variables
   var responseSent = response.headers['x-response-sent'] || false
@@ -40,7 +16,8 @@ function benchmarkLatency(response) {
 
   // If the server is not sending the latency headers we stop here
   if (!responseSent || !requestReceived){
-    return '{ "error" : "The server did not respond with latency headers" }'
+    console.log({ "error" : "The server did not respond with latency headers" })
+    return false
   }
 
   // The math to determine the latencies
@@ -65,4 +42,11 @@ function benchmarkLatency(response) {
     "incoming" : incomingLatency + "ms",
     "roundtrip" : roundtripLatency + "ms"
   }
-}
+
+}).on('error', function(e) {
+  
+  // There was an error connecting to the server
+  console.log({ "error" : "There was an error connecting to the server" });
+  return false
+  
+});
