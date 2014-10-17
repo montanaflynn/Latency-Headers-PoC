@@ -12,10 +12,9 @@
     "test": "node client.js",
     "posttest": "pkill latencyPoC"
   },
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "ISC",
   "dependencies": {
-    "koa": "^0.12.2",
     "unirest": "^0.2.7"
   }
 }
