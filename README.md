@@ -10,15 +10,17 @@ Basically there are two headers introduced in this proof of concept.
 With these headers in place client can determine the following:
 
 **outgoing network latency** is the time from the client sending the request until being received by the server
+
 **server processing latency** is the time from the server getting the request until sending the response
+
 **incoming network latency** is the time from the server sending the response until being received by the client
+
 **total round trip latency** is the time from the client sending the request until a response back from the server
 
 ### Try it out
 
-Run the proof of concept by downloading the files, going to the directory and running `npm start` like so:
-
 ```shell
 git clone git@github.com:montanaflynn/Latency-Headers-PoC.git
 cd Latency-Headers-PoC
-npm start```
+npm start
+```
