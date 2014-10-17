@@ -1,14 +1,19 @@
-// Make the request to the server with http://unirest.io
+// HTTP client library unirest.io
 var unirest = require('unirest')
  
 // This is the starting timestamp of when the request was sent
 var requestSent = new Date().getTime()
- 
-unirest
-  // Get supported server at port 1337 as set in server.js
-  .get('http://localhost:1337/')
 
-  // Send the response to an anonymous function
+// Get the local test server at port 1337 or user supplied server
+var server = process.argv[2] || "http://localhost:1337"
+
+// Make the request
+unirest
+
+  // Send the GET request to the server
+  .get(server)
+
+  // Return the response to an anonymous function
   .end(function(response){
 
     // Run the response handler function to get the latency
@@ -25,6 +30,7 @@ function benchmarkLatency(response) {
 
   // There was an error with the request so we must stop here
   if (response.error) {
+    console.log(response.error)
     return '{ "error" : "There was a problem connecting to the server" }'
   }
 
