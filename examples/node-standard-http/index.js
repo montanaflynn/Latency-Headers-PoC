@@ -22,7 +22,7 @@ var server = http.createServer(function (request, response) {
     // Return the obligatory hello world response
     response.end("Hello World\n");
 
-  }, Math.floor((Math.random() * 75) + 50))
+  }, Math.floor((Math.random() * 25) + 50))
 
 });
 

@@ -4,10 +4,10 @@
   "author": "Montana Flynn",
   "scripts": {
     "killserver": "pkill latencyPoC",
-    "prestart": "node server.js &",
+    "prestart": "node ./examples/node-standard-http/index.js &",
     "start": "node client.js",
     "poststart": "pkill latencyPoC"
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "ISC"
 }
