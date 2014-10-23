@@ -1,0 +1,8 @@
+{
+  "name": "koa-latency-middleware-example",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "~4.9.0",
+    "koa-latency-headers": "0.0.4"
+  }
+}
