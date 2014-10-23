@@ -3,10 +3,10 @@ var koa = require('koa')
 var app = koa()
 
 // Latency Header Middleware
-var latency = require('koa-latency-headers')
+var latencyHeaders = require('koa-latency-headers')
  
 // Set the x-request-received header
-app.use(latency())
+app.use(latencyHeaders())
 
 // Send the response body
 app.use(function *(next){

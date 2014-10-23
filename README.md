@@ -1,6 +1,6 @@
 # Latency Headers Standard PoC
 
-### Explaination
+### Explanation
 
 Basically the server returns headers that the client can use to determine the latency.
 
