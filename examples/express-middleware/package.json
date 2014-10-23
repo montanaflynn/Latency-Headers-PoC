@@ -1,0 +1,8 @@
+{
+  "name": "express-latency-middleware-example",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "~4.9.0",
+    "express-latency-headers": "0.0.3"
+  }
+}
