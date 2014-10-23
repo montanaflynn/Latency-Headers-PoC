@@ -2,7 +2,7 @@
 
 ### Explaination
 
-Basically this proof-of-concept is equal parts server and client. The server returns headers that the client can use to determine the latency.
+Basically the server returns headers that the client can use to determine the latency.
 
 The server adds these two http response headers:
 
@@ -25,12 +25,6 @@ git clone git@github.com:montanaflynn/Latency-Headers-PoC.git
 cd Latency-Headers-PoC
 npm start
 ```
-
-The command `npm start` does the following: 
-
-1. Run the example server in the background
-2. Run the example client
-3. Kill the example server
 
 #### Server Examples
 
