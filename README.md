@@ -39,6 +39,5 @@ npm start
 ### Todos
 
 - Create proper spec and RFC
-- Have a list of APIs that you can test
 - <del>Middleware examples for expressjs / koa / etc...</del>
-- Lua & nginx examples / OpenResty / Lapis
+- Have a list of APIs that you can test
