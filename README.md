@@ -26,6 +26,16 @@ cd Latency-Headers-PoC
 npm start
 ```
 
+That should return something like this:
+
+    =================================================
+    Latency Benchmarks:
+    Total outgoing network latency: 12ms
+    Total processing time latency: 55ms
+    Total incoming network latency: 4ms
+    Total round trip latency: 71ms
+    =================================================
+
 #### Server Examples
 
 - [Standard Node.js](https://github.com/montanaflynn/Latency-Headers-PoC/blob/master/examples/node-standard-http/index.js)
