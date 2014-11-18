@@ -1,15 +1,15 @@
-# Latency Headers Standard PoC
+# Latency Headers PoC
 
-### Explanation
+Adding HTTP headers to http responses enables developers to gain a better view into their API layer's latency and networking bottlenecks.
 
-Basically the server returns headers that the client can use to determine the latency.
+### Explaination
 
-The server adds these two http response headers:
+Basically there are two headers introduced in this proof of concept:
 
 - `x-request-received` is set by the server with the timestamp of when the request was received
 - `x-response-sent` is set by the server with the timestamp of when the response was sent
 
-The client can use these headers to determine the following:
+With these headers in place the client can then determine the following:
 
 - **outgoing network latency**: time between client sending the request and server receiving it
 - **server processing latency**: time between server receiving the request and sending the response
@@ -26,8 +26,8 @@ cd Latency-Headers-PoC
 npm start
 ```
 
-That should return something like this:
-
+That should output something like this:
+    
     =================================================
     Latency Benchmarks:
     Total outgoing network latency: 12ms
@@ -36,18 +36,100 @@ That should return something like this:
     Total round trip latency: 71ms
     =================================================
 
-#### Server Examples
+### Complete Example
 
-- [Standard Node.js](https://github.com/montanaflynn/Latency-Headers-PoC/blob/master/examples/node-standard-http/index.js)
-- [Koa Middleware](https://github.com/montanaflynn/Latency-Headers-PoC/tree/master/examples/koa-middleware)
-- [Express Middleware](https://github.com/montanaflynn/Latency-Headers-PoC/tree/master/examples/express-middleware)
+#### server.js
 
-#### Client Examples
+```js
+// Load the http module
+var http = require('http');
 
-- [Node.js](https://github.com/montanaflynn/Latency-Headers-PoC/blob/master/client.js)
+// Make it easy to pkill from npm
+process.title = "latencyServer"
 
-### Todos
+// Create the server
+var server = http.createServer(function (request, response) {
 
-- Create proper spec and RFC
-- <del>Middleware examples for expressjs / koa / etc...</del>
-- Have a list of APIs that you can test
+  // Set the x-request-received header with the current timestamp
+  response.setHeader('x-request-received', new Date().getTime());
+
+  // Simulate a delay for processing latency to show up
+  setTimeout(function(){
+
+    // Set the x-response-sent header with the current timestamp
+    response.setHeader('x-response-sent', new Date().getTime());
+
+    // Set the header status to ok and the content type
+    response.writeHead(200, {"Content-Type": "text/plain"});
+
+    // Return the demobligatory hello world response
+    response.end("Hello World\n");
+
+  // Remember that delay? 50-75ms sounds like a good target
+  }, Math.floor((Math.random() * 25) + 50))
+
+});
+
+// Listen on localhost:1337
+server.listen(1337);
+```
+
+#### app.js
+
+```js
+// Require http for requests
+var http = require('http')
+
+// Save the timestamp of when the request was sent as its required
+var requestSent = new Date().getTime()
+
+// Send the request to a server that returns the latency headers
+http.get("http://localhost:1337", function(res) {
+
+  // Save the response headers for easy access later
+  var headers = res.headers
+
+  // Save the timestamp of when the response was received
+  var responseReceived = new Date().getTime()
+
+  // Save the headers we care about in variables
+  var responseSent = headers['x-response-sent'] || false
+  var requestReceived = headers['x-request-received'] || false
+
+  // If the latency headers do not exist
+  if (!responseSent || !requestReceived){
+    throw new Error("The server did not respond with latency headers.")
+  }
+
+  // The math to determine the latencies
+  var outgoingLatency = requestReceived - requestSent
+  var processingLatency = responseSent - requestReceived
+  var incomingLatency = responseReceived - responseSent
+  var roundtripLatency = outgoingLatency + processingLatency + incomingLatency
+
+  // Return back the latencies
+  var results = {
+      "outgoingLatency" : outgoingLatency,
+      "processingLatency" : processingLatency,
+      "incomingLatency" : incomingLatency,
+      "roundtripLatency" : roundtripLatency
+  }
+
+  // Output the results
+  console.log(results)
+})
+```
+
+### Related projects
+
+#### Client Implementations
+- [Node.js Standard Library](https://github.com/montanaflynn/Latency-Headers-PoC/blob/master/client.js)
+- [Latency Headers Benchmark](https://github.com/montanaflynn/latency-header-benchmark/)
+
+#### Server Implementations
+
+- [Node.js Standard Library](https://github.com/montanaflynn/Latency-Headers-PoC/blob/master/examples/node-standard-http/index.js)
+- [Express Latency Header Middleware](https://github.com/montanaflynn/express-latency-headers)
+- [Koa Latency Header Middleware](https://github.com/montanaflynn/koa-latency-headers)
+
+Copyright (c) 2014, Montana Flynn (http://anonfunction.com/)
