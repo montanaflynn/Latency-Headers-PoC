@@ -11,7 +11,7 @@ app.use(latencyHeaders())
 // Send the response body
 app.use(function *(next){
 
-  // Simulate processing delay
+  // Simulate processing delay of 25-50ms
   yield (function() {
     var timeout = Math.floor((Math.random() * 25) + 25);
     return function (cb) {

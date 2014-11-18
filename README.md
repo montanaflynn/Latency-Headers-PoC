@@ -132,4 +132,6 @@ http.get("http://localhost:1337", function(res) {
 - [Express Latency Header Middleware](https://github.com/montanaflynn/express-latency-headers)
 - [Koa Latency Header Middleware](https://github.com/montanaflynn/koa-latency-headers)
 
+## MIT license
+
 Copyright (c) 2014, Montana Flynn (http://anonfunction.com/)
